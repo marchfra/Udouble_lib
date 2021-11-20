@@ -3,7 +3,7 @@ project(Udouble_lib)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(Udouble_lib library.cpp Udouble.cpp Udouble.h)
+add_library(Udouble_lib library.cpp Udouble.cpp Udouble.h derivative.cpp derivative.h)
 
 include(FetchContent)
 FetchContent_Declare(

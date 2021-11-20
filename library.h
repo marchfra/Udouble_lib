@@ -1,0 +1,6 @@
+#ifndef UDOUBLE_LIB_LIBRARY_H
+#define UDOUBLE_LIB_LIBRARY_H
+
+void hello();
+
+#endif //UDOUBLE_LIB_LIBRARY_H

@@ -88,3 +88,11 @@ TEST_F(UdoubleTest, division) {
 	ASSERT_DOUBLE_EQ(div.getN(), nx / ny);
 	ASSERT_DOUBLE_EQ(div.getS(), nx / ny * sqrt(sx / nx * sx / nx + sy / ny * sy / ny));
 }
+
+// Not implemented
+TEST_F(UdoubleTest, output) {
+	testing::internal::CaptureStdout();
+	std::cout << "My test";
+	std::string output = testing::internal::GetCapturedStdout();
+	ASSERT_STREQ("My test", "My test");
+}

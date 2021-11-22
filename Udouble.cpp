@@ -54,7 +54,32 @@ Udouble Udouble::operator/(const Udouble &u) const {
 	double nominal = nominal_value / u.nominal_value;
 	double sigma_rel = sqrt(std_dev / nominal_value * std_dev / nominal_value +
 							u.std_dev / u.nominal_value * u.std_dev / u.nominal_value);
-	return {nominal, nominal * sigma_rel};}
+	return {nominal, nominal * sigma_rel};
+}
+
+bool Udouble::operator<(const Udouble &u) const {
+	return nominal_value < u.nominal_value;
+}
+
+bool Udouble::operator>(const Udouble &u) const {
+	return nominal_value > u.nominal_value;
+}
+
+bool Udouble::operator>=(const Udouble &u) const {
+	return nominal_value >= u.nominal_value;
+}
+
+bool Udouble::operator<=(const Udouble &u) const {
+	return nominal_value <= u.nominal_value;
+}
+
+bool Udouble::operator==(const Udouble &u) const {
+	return nominal_value == u.nominal_value and std_dev == u.std_dev;
+}
+
+bool Udouble::operator!=(const Udouble &u) const {
+	return nominal_value != u.nominal_value and std_dev != u.std_dev;
+}
 
 Udouble::Udouble(double n, double s) : nominal_value(n), std_dev(s) {
 	Udouble::nominal_value = n;

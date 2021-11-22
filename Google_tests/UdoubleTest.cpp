@@ -30,14 +30,19 @@ TEST_F(UdoubleTest, valueConstruction) {
 	ASSERT_EQ(x->getS(), 0.14);
 }
 
-//TEST_F(UdoubleTest, comparisons) {
-//	x->setN(3);
-//	x->setS(0.14);
-//	y->setN(2);
-//	y->setS(0.14);
-//	std::cout << *x << *y;
-//	ASSERT_TRUE(*x > *y);
-//}
+// Missing tests on comparison between Udouble and double
+TEST_F(UdoubleTest, comparisons) {
+	x->setN(3);
+	x->setS(0.14);
+	y->setN(2);
+	y->setS(0.72);
+	ASSERT_FALSE(*x < *y);
+	ASSERT_TRUE(*x > *y);
+	ASSERT_FALSE(*x <= *y);
+	ASSERT_TRUE(*x >= *y);
+	ASSERT_FALSE(*x == *y);
+	ASSERT_TRUE(*x != *y);
+}
 
 TEST_F(UdoubleTest, sum) {
 	std::random_device rd;

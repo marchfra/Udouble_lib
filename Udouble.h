@@ -28,6 +28,14 @@ public:
 	Udouble operator-(const Udouble &u) const;
 	Udouble operator*(const Udouble &u) const;
 	Udouble operator/(const Udouble &u) const;
+	// I should define comparison between Udouble and double as well
+	bool operator<(const Udouble &u) const;
+	bool operator>(const Udouble &u) const;
+	bool operator<=(const Udouble &u) const;
+	bool operator>=(const Udouble &u) const;
+	bool operator==(const Udouble &u) const;
+	bool operator!=(const Udouble &u) const;
+
 
 	static void format(std::ostream &out, double &nom_val, double &std_dev);
 private:

@@ -9,12 +9,12 @@
 
 class UdoubleTest : public ::testing::Test {
 protected:
-	virtual void SetUp() {
+	void SetUp() override {
 		x = new Udouble();
 		y = new Udouble();
 	}
 
-	virtual void TearDown() {
+	void TearDown() override {
 		delete x;
 		delete y;
 	}
@@ -23,13 +23,29 @@ protected:
 	Udouble *y;
 };
 
+TEST_F(UdoubleTest, valueConstruction) {
+	x->setN(3);
+	x->setS(0.14);
+	ASSERT_EQ(x->getN(), 3);
+	ASSERT_EQ(x->getS(), 0.14);
+}
+
+//TEST_F(UdoubleTest, comparisons) {
+//	x->setN(3);
+//	x->setS(0.14);
+//	y->setN(2);
+//	y->setS(0.14);
+//	std::cout << *x << *y;
+//	ASSERT_TRUE(*x > *y);
+//}
+
 TEST_F(UdoubleTest, sum) {
 	std::random_device rd;
 	std::default_random_engine eng(rd());
 	std::uniform_real_distribution<double> distr(-1000, 1000);
 	int num_tests = 100;
 	double nx = distr(eng), ny = distr(eng);
-	double sx = distr(eng), sy = distr(eng);
+	double sx = std::abs(distr(eng)), sy = std::abs(distr(eng));
 	x->setN(nx);
 	x->setS(sx);
 	y->setN(ny);
@@ -45,7 +61,7 @@ TEST_F(UdoubleTest, difference) {
 	std::uniform_real_distribution<double> distr(-1000, 1000);
 	int num_tests = 100;
 	double nx = distr(eng), ny = distr(eng);
-	double sx = distr(eng), sy = distr(eng);
+	double sx = std::abs(distr(eng)), sy = std::abs(distr(eng));
 	x->setN(nx);
 	x->setS(sx);
 	y->setN(ny);
@@ -60,7 +76,7 @@ TEST_F(UdoubleTest, multiplication) {
 	std::default_random_engine eng(rd());
 	std::uniform_real_distribution<double> distr(-1000, 1000);
 	double nx = distr(eng), ny = distr(eng);
-	double sx = distr(eng), sy = distr(eng);
+	double sx = std::abs(distr(eng)), sy = std::abs(distr(eng));
 	x->setN(nx);
 	x->setS(sx);
 	y->setN(ny);
@@ -79,7 +95,7 @@ TEST_F(UdoubleTest, division) {
 	std::default_random_engine eng(rd());
 	std::uniform_real_distribution<double> distr(-1000, 1000);
 	double nx = distr(eng), ny = distr(eng);
-	double sx = distr(eng), sy = distr(eng);
+	double sx = std::abs(distr(eng)), sy = std::abs(distr(eng));
 	x->setN(nx);
 	x->setS(sx);
 	y->setN(ny);
@@ -89,10 +105,16 @@ TEST_F(UdoubleTest, division) {
 	ASSERT_DOUBLE_EQ(div.getS(), nx / ny * sqrt(sx / nx * sx / nx + sy / ny * sy / ny));
 }
 
-// Not implemented
 TEST_F(UdoubleTest, output) {
-	testing::internal::CaptureStdout();
-	std::cout << "My test";
-	std::string output = testing::internal::GetCapturedStdout();
-	ASSERT_STREQ("My test", "My test");
+	std::vector<double> nx = {};
+	std::vector<double> sx = {};
+	for (int i = 0; i < nx.size(); i++) {
+		x->setN(nx[i]);
+		x->setS(sx[i]);
+		testing::internal::CaptureStdout();
+		std::cout << *x;
+		std::string output = testing::internal::GetCapturedStdout();
+		ASSERT_EQ("My test", output);  // I didn't use ASSERT_STREQ because it should be user when comparing char* [].
+											// When comparing actual std::string ASSERT_EQ has to be used
+	}
 }
